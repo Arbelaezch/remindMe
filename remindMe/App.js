@@ -18,7 +18,9 @@ import {
   View,
   Image,
   Linking,
-  TouchableOpacity
+  TouchableOpacity,
+  Button,
+  Alert
 } from 'react-native';
 
 import {
@@ -51,24 +53,18 @@ class ScrollViewExample extends Component {
   render(props) {
      return (
         <View style={{flex :1, justifyContent: 'center', margin: 15 }}>
-          <Text>Text</Text>
-          <TouchableOpacity>
-            <Text style={{ color: 'blue' }} onPress={() => Linking.openURL('https://www.google.com')}>
-              link
-            </Text>
-          </TouchableOpacity>
           <ScrollView>
               {this.state.names.map((item, index) => (
-                <View key = {item.id} style={styles.item}>
-                  <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com')}>
+                <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com')}>
+                  <View key = {item.id} style={styles.item}>   
                     <Text style={{ color: 'white'}}>
-                    {item.name}
-                  </Text>
-                  </TouchableOpacity>
-                  
-                </View>
+                      {item.name}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
               ))}
           </ScrollView>
+          <Button title='Add item' onPress={addReminder}></Button>
         </View>
      );
   }
@@ -86,6 +82,19 @@ const styles = StyleSheet.create ({
      backgroundColor: 'black',
   }
 })
+
+function addReminder() {
+  Alert.alert(
+    "Alert title",
+    "Alert message",
+    [
+      {
+        text: "OK",
+        onPress: () => console.log("Ask me later pressed")
+      }
+    ]
+  )
+}
 
 
 // const logo = {
