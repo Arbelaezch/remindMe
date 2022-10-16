@@ -16,7 +16,9 @@ import {
   Text,
   useColorScheme,
   View,
-  Image
+  Image,
+  Linking,
+  TouchableOpacity
 } from 'react-native';
 
 import {
@@ -49,9 +51,24 @@ class ScrollViewExample extends Component {
   render(props) {
      return (
         <View style={{flex :1, justifyContent: 'center', margin: 15 }}>
-           <ScrollView>
-              {this.state.names.map((item, index) => (<View key = {item.id} style={styles.item}><Text style={{ color: 'white'}}>{item.name}</Text></View>))}
-           </ScrollView>
+          <Text>Text</Text>
+          <TouchableOpacity>
+            <Text style={{ color: 'blue' }} onPress={() => Linking.openURL('https://www.google.com')}>
+              link
+            </Text>
+          </TouchableOpacity>
+          <ScrollView>
+              {this.state.names.map((item, index) => (
+                <View key = {item.id} style={styles.item}>
+                  <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com')}>
+                    <Text style={{ color: 'white'}}>
+                    {item.name}
+                  </Text>
+                  </TouchableOpacity>
+                  
+                </View>
+              ))}
+          </ScrollView>
         </View>
      );
   }
