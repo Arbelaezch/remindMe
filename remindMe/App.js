@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import type {Node} from 'react';
+import {Routes, Route, useNavigate} from 'react-router-dom'
 import {
   SafeAreaView,
   ScrollView,
@@ -33,6 +34,14 @@ import {
 
 
 
+
+
+
+
+
+
+
+
 class ScrollViewExample extends Component {
   state = {
      names: [
@@ -50,12 +59,20 @@ class ScrollViewExample extends Component {
         {'name': 'Olivia', 'id': 12}
      ]
   }
+
   render(props) {
+
+    // const navigate = useNavigate();
+
+    const navigateToReminder = () => {
+      
+    }
+
      return (
         <View style={{flex :1, justifyContent: 'center', margin: 15 }}>
           <ScrollView>
               {this.state.names.map((item, index) => (
-                <TouchableOpacity onPress={() => Linking.openURL('https://www.google.com')}>
+                <TouchableOpacity onPress={navigateToReminder}>
                   <View key = {item.id} style={styles.item}>   
                     <Text style={{ color: 'white'}}>
                       {item.name}
@@ -95,6 +112,13 @@ function addReminder() {
     ]
   )
 }
+
+function reminderPage() {
+  return <h2>Reminder Page</h2>
+}
+
+
+
 
 
 // const logo = {
