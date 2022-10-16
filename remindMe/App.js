@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -16,6 +16,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Image
 } from 'react-native';
 
 import {
@@ -26,96 +27,116 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <Section title="Testing">
-            Here ya go ya filthy animal.
-          </Section>
-          <LearnMoreLinks />
+class ScrollViewExample extends Component {
+  state = {
+     names: [
+        {'name': 'Ben', 'id': 1},
+        {'name': 'Susan', 'id': 2},
+        {'name': 'Robert', 'id': 3},
+        {'name': 'Mary', 'id': 4},
+        {'name': 'Daniel', 'id': 5},
+        {'name': 'Laura', 'id': 6},
+        {'name': 'John', 'id': 7},
+        {'name': 'Debra', 'id': 8},
+        {'name': 'Aron', 'id': 9},
+        {'name': 'Ann', 'id': 10},
+        {'name': 'Steve', 'id': 11},
+        {'name': 'Olivia', 'id': 12}
+     ]
+  }
+  render(props) {
+     return (
+        <View style={{flex :1, justifyContent: 'center', margin: 15 }}>
+           <ScrollView>
+              {this.state.names.map((item, index) => (<View key = {item.id} style =       {styles.item}><Text>{item.name}</Text></View>))
+           }
+           </ScrollView>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+     );
+  }
+}
+export default ScrollViewExample;
+const styles = StyleSheet.create ({
+  item: {
+     flexDirection: 'row',
+     justifyContent: 'space-between',
+     alignItems: 'center',
+     padding: 30,
+     margin: 2,
+     borderColor: '#2a4944',
+     borderWidth: 1,
+     backgroundColor: '#d2f7f1'
+  }
+})
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-    
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
-export default App;
+// const logo = {
+//   uri: 'https://reactnative.dev/img/tiny_logo.png',
+//   width: 64,
+//   height: 64
+// }
+
+// const styles = {
+  
+// }
+// state = {
+//   names: [
+//      {'name': 'Ben', 'id': 1},
+//      {'name': 'Susan', 'id': 2},
+//      {'name': 'Robert', 'id': 3},
+//      {'name': 'Mary', 'id': 4},
+//      {'name': 'Daniel', 'id': 5},
+//      {'name': 'Laura', 'id': 6},
+//      {'name': 'John', 'id': 7},
+//      {'name': 'Debra', 'id': 8},
+//      {'name': 'Aron', 'id': 9},
+//      {'name': 'Ann', 'id': 10},
+//      {'name': 'Steve', 'id': 11},
+//      {'name': 'Olivia', 'id': 12}
+//   ]
+// }
+
+// const App = () => (
+//   <ScrollView>
+//     <Text style={{ fontSize: 22 }}>Scroll me plz</Text>
+
+//     {this.state.names.map((item, index) => (<View key = {item.id} style = {styles.item}><Text>{item.name}</Text></View>))}    <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Text style={{ fontSize: 96 }}>If you like</Text>
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Text style={{ fontSize: 96 }}>Scrolling down</Text>
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Text style={{ fontSize: 96 }}>What's the best</Text>
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Text style={{ fontSize: 96 }}>Framework around?</Text>
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Image source={logo} />
+//     <Text style={{ fontSize: 80 }}>React Native</Text>
+//   </ScrollView>
+// );
+
+
+// export default App;
+
+
+
