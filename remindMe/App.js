@@ -38,49 +38,69 @@ import {
 
 
 export default class App extends Component {
-  state = {
-    names: [
-       {'name': 'Ben', 'id': 1},
-       {'name': 'Susan', 'id': 2},
-       {'name': 'Robert', 'id': 3},
-       {'name': 'Mary', 'id': 4},
-       {'name': 'Daniel', 'id': 5},
-       {'name': 'Laura', 'id': 6},
-       {'name': 'John', 'id': 7},
-       {'name': 'Debra', 'id': 8},
-       {'name': 'Aron', 'id': 9},
-       {'name': 'Ann', 'id': 10},
-       {'name': 'Steve', 'id': 11},
-       {'name': 'Olivia', 'id': 12}
-    ],
-    modalVisible: false
+  constructor(props) {
+    super(props)
+    this.state = {
+      modalVisible: false,
+      activeItemName: '',
+      activeItemId: null,
+
+      names: [
+        {'name': 'Ben', 'id': 1},
+        {'name': 'Susan', 'id': 2},
+        {'name': 'Robert', 'id': 3},
+        {'name': 'Mary', 'id': 4},
+        {'name': 'Daniel', 'id': 5},
+        {'name': 'Laura', 'id': 6},
+        {'name': 'John', 'id': 7},
+        {'name': 'Debra', 'id': 8},
+        {'name': 'Aron', 'id': 9},
+        {'name': 'Ann', 'id': 10},
+        {'name': 'Steve', 'id': 11},
+        {'name': 'Olivia', 'id': 12}
+     ],
+    }
   };
 
-  setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
+  reminderModal(item) {
+    this.setState({ 
+      modalVisible: true,
+      activeItemName: item.name,
+      activeItemId: item.id,
+    });
   }
 
-  render(props) {
-    const { modalVisible } = this.state
+  closeModal() {
+    this.setState({
+      modalVisible: false,
+      activeItemId: null,
+      activeItemName: '',
+    });
+  }
+
+  render() {
+
     return (
       <View style={styles.centeredView}>
       
       {/* MODAL */}
       <Modal
+        itemId={this.state.activeItemId}
+        itemName={this.state.activeItemName}
         animationType='slide'
         transparent={true}
-        visible={modalVisible}
+        visible={this.state.modalVisible}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          this.setModalVisible(!modalVisible);
+          this.reminderModal(!modalVisible);
         }}
       >
         <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
+              <Text style={styles.modalText}>{this.state.activeItemName}</Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => this.setModalVisible(!modalVisible)}
+                onPress={() => this.closeModal()}
               >
                 <Text style={styles.textStyle}>Hide Modal</Text>
               </Pressable>
@@ -93,7 +113,7 @@ export default class App extends Component {
       {<View style={{flex :1, justifyContent: 'center', margin: 15 }}>
         <ScrollView>
             {this.state.names.map((item, index) => (
-              <TouchableOpacity onPress={() => this.setModalVisible(true)}>
+              <TouchableOpacity onPress={() => this.reminderModal(item)}>
                 <View key = {item.id} style={styles.item}>   
                   <Text style={{ color: 'white'}}>
                     {item.name}
@@ -102,10 +122,10 @@ export default class App extends Component {
               </TouchableOpacity>
             ))}
         </ScrollView>
-        <Button title='Add item' onPress={addReminder}></Button>
+        
       </View>}
       
-      
+      <Button title='Add item' onPress={addReminder}></Button>
       
       </View>
     );
@@ -124,16 +144,17 @@ const styles = StyleSheet.create ({
      borderWidth: 1,
      backgroundColor: 'black',
   },
-
   centeredView: {
     flex: 1,
     justifyContent: "center",
-    marginTop: 22
+    marginTop: 10,
+    marginBottom: 10,
   },
+
   modalView: {
-    margin: 20,
+    flex: 1,
     backgroundColor: "white",
-    borderRadius: 20,
+    // borderRadius: 20,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
@@ -150,9 +171,6 @@ const styles = StyleSheet.create ({
     padding: 10,
     elevation: 2
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
   buttonClose: {
     backgroundColor: "#2196F3",
   },
@@ -163,7 +181,8 @@ const styles = StyleSheet.create ({
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
+    color: 'black',
   }
 });
 
