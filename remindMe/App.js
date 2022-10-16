@@ -50,8 +50,7 @@ class ScrollViewExample extends Component {
      return (
         <View style={{flex :1, justifyContent: 'center', margin: 15 }}>
            <ScrollView>
-              {this.state.names.map((item, index) => (<View key = {item.id} style =       {styles.item}><Text>{item.name}</Text></View>))
-           }
+              {this.state.names.map((item, index) => (<View key = {item.id} style={styles.item}><Text style={{ color: 'white'}}>{item.name}</Text></View>))}
            </ScrollView>
         </View>
      );
@@ -67,7 +66,7 @@ const styles = StyleSheet.create ({
      margin: 2,
      borderColor: '#2a4944',
      borderWidth: 1,
-     backgroundColor: '#d2f7f1'
+     backgroundColor: 'black',
   }
 })
 
